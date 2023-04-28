@@ -10,25 +10,64 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^7.4.3 || ^8.0",
         "codeigniter4/framework": "^4.3",
         "tightenco/collect": "^v8.0",
         "ext-json": "*"
     },
+    "require-dev": {
+        "fakerphp/faker": "^1.21",
+        "mikey179/vfsstream": "^1.6",
+        "phpunit/phpunit": "^9.5",
+        "codeigniter4/devkit": "^1.1",
+        "mockery/mockery": "^1.5",
+        "rector/rector": "0.15.23"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "ShoppingCart\\": "src"
-        }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.0"
+        },
+        "exclude-from-classmap": [
+            "**/Database/Migrations/**"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests",
+            "Tests\\Support\\": "tests/_support"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
         }
     },
     "scripts": {
-        "test": "phpunit --testdox --colors=always -vvv"
+        "post-update-cmd": [
+            "bash bin/setup.sh"
+        ],
+        "analyze": [
+            "phpstan analyze",
+            "psalm",
+            "rector process --dry-run"
+        ],
+        "sa": "@analyze",
+        "ci": [
+            "Composer\\Config::disableProcessTimeout",
+            "@cs",
+            "@deduplicate",
+            "@inspect",
+            "@analyze",
+            "@test"
+        ],
+        "cs": "php-cs-fixer fix --ansi --verbose --dry-run --diff",
+        "cs-fix": "php-cs-fixer fix --ansi --verbose --diff",
+        "deduplicate": "phpcpd app/ src/ --exclude src/Database/Migrations/2020-12-28-223112_create_auth_tables.php",
+        "inspect": "deptrac analyze --cache-file=build/deptrac.cache",
+        "mutate": "infection --threads=2 --skip-initial-tests --coverage=build/phpunit",
+        "style": "@cs-fix",
+        "test": "phpunit"
     }
 }
