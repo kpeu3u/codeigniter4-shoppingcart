@@ -18,7 +18,8 @@ use Tightenco\Collect\Support\Collection;
  */
 final class CartTest extends CIUnitTestCase
 {
-    use CartAssertions,DatabaseTestTrait;
+    use CartAssertions;
+    use DatabaseTestTrait;
 
     protected Cart $getCart;
     protected $seed = CartSeeder::class;

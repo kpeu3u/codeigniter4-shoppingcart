@@ -285,8 +285,6 @@ class Cart
      *
      * @param string $rowId
      * @param mixed  $model
-     *
-     * @return void
      */
     public function associate($rowId, $model): void
     {
@@ -308,10 +306,7 @@ class Cart
     /**
      * Set the tax rate for the cart item with the given rowId.
      *
-     * @param string $rowId
      * @param float|int $taxRate
-     *
-     * @return void
      */
     public function setTax(string $rowId, $taxRate): void
     {
@@ -485,6 +480,8 @@ class Cart
     }
 
     /**
+     * @param mixed $identifier
+     *
      * @return bool
      */
     protected function storedCartWithIdentifierExists($identifier)

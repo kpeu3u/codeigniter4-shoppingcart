@@ -75,7 +75,6 @@ class CartItem implements Arrayable, Jsonable
      */
     private $isSaved = false;
 
-
     /**
      * CartItem constructor.
      *
@@ -115,7 +114,7 @@ class CartItem implements Arrayable, Jsonable
      */
     public function price($decimals = null, $decimalPoint = null, $thousandSeparator = null)
     {
-        return static::numberFormat(floatval($this->price), $decimals, $decimalPoint, $thousandSeparator);
+        return static::numberFormat((float) ($this->price), $decimals, $decimalPoint, $thousandSeparator);
     }
 
     /**
@@ -129,7 +128,7 @@ class CartItem implements Arrayable, Jsonable
      */
     public function priceTax($decimals = null, $decimalPoint = null, $thousandSeparator = null)
     {
-        return static::numberFormat(floatval($this->priceTax), $decimals, $decimalPoint, $thousandSeparator);
+        return static::numberFormat((float) ($this->priceTax), $decimals, $decimalPoint, $thousandSeparator);
     }
 
     /**
@@ -143,7 +142,7 @@ class CartItem implements Arrayable, Jsonable
      */
     public function subTotal($decimals = null, $decimalPoint = null, $thousandSeparator = null)
     {
-        return static::numberFormat(floatval($this->subTotal), $decimals, $decimalPoint, $thousandSeparator);
+        return static::numberFormat((float) ($this->subTotal), $decimals, $decimalPoint, $thousandSeparator);
     }
 
     /**
@@ -157,7 +156,7 @@ class CartItem implements Arrayable, Jsonable
      */
     public function total($decimals = null, $decimalPoint = null, $thousandSeparator = null)
     {
-        return static::numberFormat(floatval($this->total), $decimals, $decimalPoint, $thousandSeparator);
+        return static::numberFormat((float) ($this->total), $decimals, $decimalPoint, $thousandSeparator);
     }
 
     /**
@@ -166,12 +165,10 @@ class CartItem implements Arrayable, Jsonable
      * @param int|null    $decimals
      * @param string|null $decimalPoint
      * @param string|null $thousandSeparator
-     *
-     * @return string
      */
     public function tax($decimals = null, $decimalPoint = null, $thousandSeparator = null): string
     {
-        return static::numberFormat(floatval($this->tax), $decimals, $decimalPoint, $thousandSeparator);
+        return static::numberFormat((float) ($this->tax), $decimals, $decimalPoint, $thousandSeparator);
     }
 
     /**
@@ -185,15 +182,13 @@ class CartItem implements Arrayable, Jsonable
      */
     public function taxTotal($decimals = null, $decimalPoint = null, $thousandSeparator = null)
     {
-        return static::numberFormat(floatval($this->taxTotal), $decimals, $decimalPoint, $thousandSeparator);
+        return static::numberFormat((float) ($this->taxTotal), $decimals, $decimalPoint, $thousandSeparator);
     }
 
     /**
      * Set the quantity for the cart item.
      *
      * @param float|int $qty
-     *
-     * @return void
      */
     public function setQuantity($qty): void
     {
@@ -206,8 +201,6 @@ class CartItem implements Arrayable, Jsonable
 
     /**
      * Update the cart item from a buyable.
-     *
-     * @return void
      */
     public function updateFromBuyable(Buyable $item): void
     {
@@ -219,8 +212,6 @@ class CartItem implements Arrayable, Jsonable
 
     /**
      * Update the cart item from an array.
-     *
-     * @return void
      */
     public function updateFromArray(array $attributes): void
     {
@@ -238,8 +229,6 @@ class CartItem implements Arrayable, Jsonable
      * Associate the cart item with the given model.
      *
      * @param mixed $model
-     *
-     * @return CartItem
      */
     public function associate($model): CartItem
     {
@@ -252,8 +241,6 @@ class CartItem implements Arrayable, Jsonable
      * Set the tax rate.
      *
      * @param float|int $taxRate
-     *
-     * @return CartItem
      */
     public function setTaxRate($taxRate): CartItem
     {
@@ -264,10 +251,6 @@ class CartItem implements Arrayable, Jsonable
 
     /**
      * Set saved state.
-     *
-     * @param bool $bool
-     *
-     * @return CartItem
      */
     public function setSaved(bool $bool): CartItem
     {
@@ -278,6 +261,8 @@ class CartItem implements Arrayable, Jsonable
 
     /**
      * Get an attribute from cart item or get the associated model.
+     *
+     * @param mixed $attribute
      *
      * @return mixed
      */
@@ -403,12 +388,9 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Get the formatted number.
      *
-     * @param float $value
      * @param int|null    $decimals
      * @param string|null $decimalPoint
      * @param string|null $thousandSeparator
-     *
-     * @return string
      */
     public static function numberFormat(float $value, $decimals = null, $decimalPoint = null, $thousandSeparator = null): string
     {
