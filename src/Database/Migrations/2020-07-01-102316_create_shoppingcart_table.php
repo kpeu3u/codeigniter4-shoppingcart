@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluent\Database\Migrations;
+namespace ShoppingCart\Database\Migrations;
 
 use CodeIgniter\Config\Config;
 use CodeIgniter\Database\Migration;

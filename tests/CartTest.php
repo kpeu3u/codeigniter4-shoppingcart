@@ -5,17 +5,17 @@ namespace Tests;
 use CodeIgniter\Config\Config;
 use CodeIgniter\Events\Events;
 use CodeIgniter\Test\CIDatabaseTestCase;
-use Fluent\ShoppingCart\Cart;
-use Fluent\ShoppingCart\CartItem;
+use ShoppingCart\Cart;
+use ShoppingCart\CartItem;
 use PHPUnit\Framework\Assert;
-use Tests\Support\Database\Seeds\CartSeeder;
+use Tests\Database\Seeds\CartSeeder;
 use Tightenco\Collect\Support\Collection;
 
 class CartTest extends CIDatabaseTestCase
 {
     use CartAssertions;
 
-    /** @var \Fluent\ShoppingCart\Cart */
+    /** @var Cart */
     protected $getCart;
 
     protected $seed = CartSeeder::class;
@@ -59,6 +59,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertEventTriggered('cart.added');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_will_return_the_cartitem_of_the_added_item()
     {
         $cart = $this->getCart;
@@ -70,6 +73,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertEventTriggered('cart.added');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_can_add_multiple_buyable_items_at_once()
     {
         $cart = $this->getCart;
@@ -80,6 +86,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertEventTriggered('cart.added');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_will_return_an_array_of_cartitems_when_you_add_multiple_items_at_once()
     {
         $cart = $this->getCart;
@@ -92,6 +101,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertEventTriggered('cart.added');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_can_add_an_item_from_attributes()
     {
         $cart = $this->getCart;
@@ -103,6 +115,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertEventTriggered('cart.added');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_can_add_an_item_from_an_array()
     {
         $cart = $this->getCart;
@@ -114,6 +129,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertEventTriggered('cart.added');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_can_add_multiple_array_items_at_once()
     {
         $cart = $this->getCart;
@@ -128,6 +146,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertEventTriggered('cart.added');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_can_add_an_item_with_options()
     {
         $cart = $this->getCart;
@@ -212,6 +233,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertRowsInCart(1, $cart);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_can_update_the_quantity_of_an_existing_item_in_the_cart()
     {
         $cart = $this->getCart;
@@ -226,6 +250,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertEventTriggered('cart.updated');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_can_update_an_existing_item_in_the_cart_from_a_buyable()
     {
         $cart = $this->getCart;
@@ -240,6 +267,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertEventTriggered('cart.updated');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_can_update_an_existing_item_in_the_cart_from_an_array()
     {
         $cart = $this->getCart;
@@ -256,7 +286,7 @@ class CartTest extends CIDatabaseTestCase
     
     public function test_it_will_throw_an_exception_if_a_rowid_was_not_found()
     {
-        $this->expectException('\Fluent\ShoppingCart\Exceptions\InvalidRowIDException');
+        $this->expectException('\ShoppingCart\Exceptions\InvalidRowIDException');
 
         $cart = $this->getCart;
 
@@ -291,6 +321,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertRowsInCart(1, $cart);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_can_remove_an_item_from_the_cart()
     {
         $cart = $this->getCart;
@@ -305,6 +338,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertEventTriggered('cart.removed');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_will_remove_the_item_if_its_quantity_was_set_to_zero()
     {
         $cart = $this->getCart;
@@ -319,6 +355,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertEventTriggered('cart.removed');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_will_remove_the_item_if_its_quantity_was_set_negative()
     {
         $cart = $this->getCart;
@@ -479,7 +518,7 @@ class CartTest extends CIDatabaseTestCase
 
     public function test_it_will_throw_an_exception_when_a_non_existing_model_is_being_associated()
     {
-        $this->expectException('\Fluent\ShoppingCart\Exceptions\UnknownModelException');
+        $this->expectException('\ShoppingCart\Exceptions\UnknownModelException');
         $this->expectExceptionMessage('The supplied model SomeModel does not exist.');
 
         $cart = $this->getCart;
@@ -582,6 +621,9 @@ class CartTest extends CIDatabaseTestCase
         $this->assertEquals('5000,00', $cart->subtotal(2, ',', ''));
     }
 
+    /**
+     * @throws \Exception
+     */
     public function test_it_can_store_the_cart_in_a_database()
     {
         $cart = $this->getCart;
@@ -620,17 +662,17 @@ class CartTest extends CIDatabaseTestCase
     /**
      * Set the config number format.
      * 
-     * @param int    $decimals
+     * @param int $decimals
      * @param string $decimalPoint
-     * @param string $thousandSeperator
+     * @param string $thousandSeparator
      */
-    private function setConfigFormat($decimals, $decimalPoint, $thousandSeperator)
+    private function setConfigFormat(int $decimals, string $decimalPoint, string $thousandSeparator): ?object
     {
         $config = Config::get('Cart');
 
         $config->format['decimals'] = $decimals;
         $config->format['decimal_point'] = $decimalPoint;
-        $config->format['thousand_seperator'] = $thousandSeperator;
+        $config->format['thousand_separator'] = $thousandSeparator;
 
         return $config;
     }

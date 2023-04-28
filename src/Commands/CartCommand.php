@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluent\ShoppingCart\Commands;
+namespace ShoppingCart\Commands;
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
@@ -42,7 +42,7 @@ class CartCommand extends BaseCommand
      *
      * @var string
      */
-    protected $sourcePath;
+    protected string $sourcePath;
 
 
     /**
@@ -62,7 +62,7 @@ class CartCommand extends BaseCommand
         $path = "{$this->sourcePath}/Config/Cart.php";
 
         $content = file_get_contents($path);
-        $content = str_replace('namespace Fluent\ShoppingCart\Config', 'namespace Config', $content);
+        $content = str_replace('namespace ShoppingCart\Config', 'namespace Config', $content);
 
         $this->writeFile('Config/Cart.php', $content);
     }

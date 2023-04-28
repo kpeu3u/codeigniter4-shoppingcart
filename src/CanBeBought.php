@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluent\ShoppingCart;
+namespace ShoppingCart;
 
 trait CanBeBought
 {
@@ -22,7 +22,7 @@ trait CanBeBought
      * @param null $options
      * @return string
      */
-    public function getBuyableDescriptions($options = null)
+    public function getBuyableDescriptions($options = null): ?string
     {
         if (property_exists($this, 'name')) {
             return $this->name;
@@ -44,7 +44,7 @@ trait CanBeBought
      *
      * @return float
      */
-    public function getBuyablePrice()
+    public function getBuyablePrice(): ?float
     {
         return property_exists($this, 'price')
             ? $this->price

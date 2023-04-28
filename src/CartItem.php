@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluent\ShoppingCart;
+namespace ShoppingCart;
 
-use Fluent\ShoppingCart\Contracts\Buyable;
+use ShoppingCart\Contracts\Buyable;
 use Tightenco\Collect\Contracts\Support\Arrayable;
 use Tightenco\Collect\Contracts\Support\Jsonable;
 use Tightenco\Collect\Support\Arr;
@@ -14,7 +14,7 @@ class CartItem implements Arrayable, Jsonable
      *
      * @var string
      */
-    public $rowId;
+    public string $rowId;
 
     /**
      * The ID of the cart item.
@@ -35,7 +35,7 @@ class CartItem implements Arrayable, Jsonable
      *
      * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * The price without TAX of the cart item.
@@ -56,7 +56,7 @@ class CartItem implements Arrayable, Jsonable
      *
      * @var string|null
      */
-    private $associatedModel = null;
+    private ?string $associatedModel = null;
 
     /**
      * The tax rate for the cart item.
@@ -70,17 +70,17 @@ class CartItem implements Arrayable, Jsonable
      *
      * @var boolean
      */
-    private $isSaved = false;
+    private bool $isSaved = false;
 
     /**
      * CartItem constructor.
      *
      * @param int|string $id
-     * @param string     $name
-     * @param float      $price
+     * @param string $name
+     * @param float $price
      * @param array      $options
      */
-    public function __construct($id, $name, $price, array $options = [])
+    public function __construct($id, string $name, float $price, array $options = [])
     {
         if (empty($id)) {
             throw new \InvalidArgumentException('Please supply a valid identifier.');
@@ -90,7 +90,7 @@ class CartItem implements Arrayable, Jsonable
             throw new \InvalidArgumentException('Please supply a valid name.');
         }
 
-        if (strlen($price) < 0 || !is_numeric($price)) {
+        if (!is_numeric($price)) {
             throw new \InvalidArgumentException('Please supply a valid price.');
         }
 
@@ -104,12 +104,12 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Return the formatted price without TAX.
      *
-     * @param int|null    $decimals
+     * @param int|null $decimals
      * @param string|null $decimalPoint
      * @param string|null $thousandSeparator
      * @return string
      */
-    public function price($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+    public function price(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         return static::numberFormat($this->price, $decimals, $decimalPoint, $thousandSeparator);
     }
@@ -117,12 +117,12 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Return the formatted price with TAX.
      *
-     * @param int|null    $decimals
+     * @param int|null $decimals
      * @param string|null $decimalPoint
      * @param string|null $thousandSeparator
      * @return string
      */
-    public function priceTax($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+    public function priceTax(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         return static::numberFormat($this->priceTax, $decimals, $decimalPoint, $thousandSeparator);
     }
@@ -130,12 +130,12 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Returns the formatted subTotal.
      *
-     * @param int|null    $decimals
+     * @param int|null $decimals
      * @param string|null $decimalPoint
      * @param string|null $thousandSeparator
      * @return string
      */
-    public function subTotal($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+    public function subTotal(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         return static::numberFormat($this->subTotal, $decimals, $decimalPoint, $thousandSeparator);
     }
@@ -143,12 +143,12 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Returns the formatted total.
      *
-     * @param int|null    $decimals
+     * @param int|null $decimals
      * @param string|null $decimalPoint
      * @param string|null $thousandSeparator
      * @return string
      */
-    public function total($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+    public function total(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         return static::numberFormat($this->total, $decimals, $decimalPoint, $thousandSeparator);
     }
@@ -156,12 +156,12 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Returns the formatted tax.
      *
-     * @param int|null    $decimals
+     * @param int|null $decimals
      * @param string|null $decimalPoint
      * @param string|null $thousandSeparator
      * @return string
      */
-    public function tax($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+    public function tax(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         return static::numberFormat($this->tax, $decimals, $decimalPoint, $thousandSeparator);
     }
@@ -169,12 +169,12 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Returns the formatted tax.
      *
-     * @param int|null    $decimals
+     * @param int|null $decimals
      * @param string|null $decimalPoint
      * @param string|null $thousandSeparator
      * @return string
      */
-    public function taxTotal($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+    public function taxTotal(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         return static::numberFormat($this->taxTotal, $decimals, $decimalPoint, $thousandSeparator);
     }
@@ -197,7 +197,7 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Update the cart item from a buyable.
      *
-     * @param \Fluent\ShoppingCart\Contracts\Buyable $item
+     * @param Buyable $item
      * @return void
      */
     public function updateFromBuyable(Buyable $item)
@@ -230,9 +230,9 @@ class CartItem implements Arrayable, Jsonable
      * Associate the cart item with the given model.
      *
      * @param mixed $model
-     * @return \Fluent\ShoppingCart\CartItem
+     * @return CartItem
      */
-    public function associate($model)
+    public function associate($model): CartItem
     {
         $this->associatedModel = is_string($model) ? $model : get_class($model);
 
@@ -243,9 +243,9 @@ class CartItem implements Arrayable, Jsonable
      * Set the tax rate.
      *
      * @param int|float $taxRate
-     * @return \Fluent\ShoppingCart\CartItem
+     * @return CartItem
      */
-    public function setTaxRate($taxRate)
+    public function setTaxRate($taxRate): CartItem
     {
         $this->taxRate = $taxRate;
 
@@ -256,9 +256,9 @@ class CartItem implements Arrayable, Jsonable
      * Set saved state.
      *
      * @param bool $bool
-     * @return \Fluent\ShoppingCart\CartItem
+     * @return CartItem
      */
-    public function setSaved($bool)
+    public function setSaved($bool): CartItem
     {
         $this->isSaved = $bool;
 
@@ -307,11 +307,11 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Create a new instance from a Buyable.
      *
-     * @param \Fluent\ShoppingCart\Contracts\Buyable $item
+     * @param Buyable $item
      * @param array                                         $options
-     * @return \Fluent\ShoppingCart\CartItem
+     * @return CartItem
      */
-    public static function fromBuyable(Buyable $item, array $options = [])
+    public static function fromBuyable(Buyable $item, array $options = []): CartItem
     {
         return new self($item->getBuyableIdentifier($options), $item->getBuyableDescription($options), $item->getBuyablePrice($options), $options);
     }
@@ -320,9 +320,9 @@ class CartItem implements Arrayable, Jsonable
      * Create a new instance from the given array.
      *
      * @param array $attributes
-     * @return \Fluent\ShoppingCart\CartItem
+     * @return CartItem
      */
-    public static function fromArray(array $attributes)
+    public static function fromArray(array $attributes): CartItem
     {
         $options = Arr::get($attributes, 'options', []);
 
@@ -333,12 +333,12 @@ class CartItem implements Arrayable, Jsonable
      * Create a new instance from the given attributes.
      *
      * @param int|string $id
-     * @param string     $name
-     * @param float      $price
+     * @param string $name
+     * @param float $price
      * @param array      $options
-     * @return \Fluent\ShoppingCart\CartItem
+     * @return CartItem
      */
-    public static function fromAttributes($id, $name, $price, array $options = [])
+    public static function fromAttributes($id, string $name, float $price, array $options = []): CartItem
     {
         return new self($id, $name, $price, $options);
     }
@@ -350,7 +350,7 @@ class CartItem implements Arrayable, Jsonable
      * @param array  $options
      * @return string
      */
-    protected static function generateRowId($id, array $options)
+    protected static function generateRowId(string $id, array $options): string
     {
         ksort($options);
 
@@ -362,7 +362,7 @@ class CartItem implements Arrayable, Jsonable
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'rowId'    => $this->rowId,
@@ -383,7 +383,7 @@ class CartItem implements Arrayable, Jsonable
      * @param int $options
      * @return string
      */
-    public function toJson($options = 0)
+    public function toJson($options = 0): string
     {
         if (isset($this->associatedModel)) {
             return json_encode(array_merge($this->toArray(), ['model' => $this->model]), $options);
@@ -395,13 +395,13 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Get the formatted number.
      *
-     * @param float       $value
-     * @param int|null    $decimals
+     * @param float $value
+     * @param int|null $decimals
      * @param string|null $decimalPoint
      * @param string|null $thousandSeparator
      * @return string
      */
-    public static function numberFormat($value, $decimals = null, $decimalPoint = null, $thousandSeparator = null)
+    public static function numberFormat(float $value, ?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         if (is_null($decimals)) {
             $decimals = config('Cart')->format['decimals'] ?? 2;

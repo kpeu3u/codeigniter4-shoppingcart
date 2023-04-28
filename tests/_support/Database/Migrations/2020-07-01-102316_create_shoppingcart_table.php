@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Support\Database\Migrations;
+namespace Tests\Database\Migrations;
 
 use CodeIgniter\Config\Config;
 use CodeIgniter\Database\Migration;

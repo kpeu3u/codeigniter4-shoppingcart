@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Support\Database\Seeds;
+namespace Tests\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
-use Fluent\ShoppingCart\Models\ShoppingCart;
+use ShoppingCart\Models\ShoppingCart;
 
 class CartSeeder extends Seeder
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluent\ShoppingCart;
+namespace ShoppingCart;
 
 use Tightenco\Collect\Support\Collection;
 

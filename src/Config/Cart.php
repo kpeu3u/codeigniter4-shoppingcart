@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluent\ShoppingCart\Config;
+namespace ShoppingCart\Config;
 
 use CodeIgniter\Config\BaseConfig;
 
@@ -10,19 +10,19 @@ class Cart extends BaseConfig
      * This default tax rate will be used when you make a class implement the
      * taxable interface and use the HasTax trait.
      */
-    public $tax = 21;
+    public int $tax = 21;
 
     /**
      * Here you can set the connection that the shoppingcart should use when
      * storing and restoring a cart.
      */
-    public $table = 'shoppingcart';
+    public string $table = 'shoppingcart';
 
     /**
-     * This defaults will be used for the formated numbers if you don't
+     * This defaults will be used for the formatted numbers if you don't
      * set them in the method call.
      */
-    public $format = [
+    public array $format = [
 
         'decimals' => 2,
 

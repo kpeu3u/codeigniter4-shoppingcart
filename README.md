@@ -37,15 +37,15 @@ Example how to load library
 
 ```php
 // Via services
-$cart = \Fluent\ShoppingCart\Config\Services::cart();
+$cart = \ShoppingCart\Config\Services::cart();
 $cart->add();
 
 // Traditional way
-$cart = new \Fluent\ShoppingCart\Cart();
+$cart = new \ShoppingCart\Cart();
 $cart->add();
 
 // Static call
-use Fluent\ShooppingCart\Facades\Cart;
+use ShooppingCart\Facades\Cart;
 
 Cart::add()
 ```
@@ -179,7 +179,7 @@ Cart::total();
 The method will automatically format the result, which you can tweak using the three optional parameters
 
 ```php
-Cart::total($decimals, $decimalSeperator, $thousandSeperator);
+Cart::total($decimals, $decimalSeparator, $thousandSeparator);
 ```
 
 You can set the default number format in the config file.
@@ -197,7 +197,7 @@ Cart::taxt();
 The method will automatically format the result, which you can tweak using the three optional parameters
 
 ```php
-Cart::taxt($decimals, $decimalSeperator, $thousandSeperator);
+Cart::taxt($decimals, $decimalSeparator, $thousandSeparator);
 ```
 
 You can set the default number format in the config file.
@@ -215,7 +215,7 @@ Cart::subtotal();
 The method will automatically format the result, which you can tweak using the three optional parameters
 
 ```php
-Cart::subtotal($decimals, $decimalSeperator, $thousandSeperator);
+Cart::subtotal($decimals, $decimalSeparator, $thousandSeparator);
 ```
 
 You can set the default number format in the config file.

@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Fluent\ShoppingCart\Contracts\Buyable;
+use ShoppingCart\Contracts\Buyable;
 
 class BuyAbleProduct implements Buyable
 {

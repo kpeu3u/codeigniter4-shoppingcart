@@ -1,30 +1,30 @@
 <?php
 
-namespace Fluent\ShoppingCart\Facades;
+namespace ShoppingCart\Facades;
 
-use Fluent\ShoppingCart\Cart as ShoppingCart;
+use ShoppingCart\Cart as ShoppingCart;
 
 /**
- * @method static \Fluent\ShoppingCart\Cart instance($instance = null)
- * @method static \Fluent\ShoppingCart\Cart currentInstance()
- * @method static \Fluent\ShoppingCart\Cart add($id, $name = null, $qty = null, $price = null, array $options = [], $taxrate = null)
- * @method static \Fluent\ShoppingCart\Cart update($rowId, $qty)
- * @method static \Fluent\ShoppingCart\Cart remove($rowId)
- * @method static \Fluent\ShoppingCart\Cart get($rowId)
- * @method static \Fluent\ShoppingCart\Cart destroy()
- * @method static \Fluent\ShoppingCart\Cart content()
- * @method static \Fluent\ShoppingCart\Cart count()
- * @method static \Fluent\ShoppingCart\Cart total($decimals = null, $decimalPoint = null, $thousandSeperator = null)
- * @method static \Fluent\ShoppingCart\Cart tax($decimals = null, $decimalPoint = null, $thousandSeperator = null)
- * @method static \Fluent\ShoppingCart\Cart subtotal($decimals = null, $decimalPoint = null, $thousandSeperator = null)
- * @method static \Fluent\ShoppingCart\Cart search(\Closure $search)
- * @method static \Fluent\ShoppingCart\Cart associate($rowId, $model)
- * @method static \Fluent\ShoppingCart\Cart setTax($rowId, $taxRate)
- * @method static \Fluent\ShoppingCart\Cart store($identifier)
- * @method static \Fluent\ShoppingCart\Cart restore($identifier)
- * @method static \Fluent\ShoppingCart\Cart __get($attribute)
+ * @method static ShoppingCart instance($instance = null)
+ * @method static ShoppingCart currentInstance()
+ * @method static ShoppingCart add($id, $name = null, $qty = null, $price = null, array $options = [], $taxrate = null)
+ * @method static ShoppingCart update($rowId, $qty)
+ * @method static ShoppingCart remove($rowId)
+ * @method static ShoppingCart get($rowId)
+ * @method static ShoppingCart destroy()
+ * @method static ShoppingCart content()
+ * @method static ShoppingCart count()
+ * @method static ShoppingCart total($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+ * @method static ShoppingCart tax($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+ * @method static ShoppingCart subtotal($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+ * @method static ShoppingCart search(\Closure $search)
+ * @method static ShoppingCart associate($rowId, $model)
+ * @method static ShoppingCart setTax($rowId, $taxRate)
+ * @method static ShoppingCart store($identifier)
+ * @method static ShoppingCart restore($identifier)
+ * @method static ShoppingCart __get($attribute)
  * 
- * @see \Fluent\ShoppingCart\Cart
+ * @see ShoppingCart
  */
 class Cart
 {

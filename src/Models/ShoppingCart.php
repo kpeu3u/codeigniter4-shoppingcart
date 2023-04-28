@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluent\ShoppingCart\Models;
+namespace ShoppingCart\Models;
 
 use CodeIgniter\Config\Config;
 use CodeIgniter\Model;
@@ -18,7 +18,7 @@ class ShoppingCart extends Model
     /**
      * Get config table name.
      *
-     * @return string
+     * @return void
      */
     public function __construct()
     {
