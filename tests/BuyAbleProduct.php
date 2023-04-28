@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use ShoppingCart\Contracts\Buyable;
@@ -23,8 +25,8 @@ class BuyAbleProduct implements Buyable
 
     public function __construct($id = 1, $name = 'Item name', $price = 10.00)
     {
-        $this->id = $id;
-        $this->name = $name;
+        $this->id    = $id;
+        $this->name  = $name;
         $this->price = $price;
     }
 
@@ -33,12 +35,12 @@ class BuyAbleProduct implements Buyable
         return $this->id;
     }
 
-    public function getBuyableDescription($options = null)
+    public function getBuyableDescription($options = null): string
     {
         return $this->name;
     }
 
-    public function getBuyablePrice($options = null)
+    public function getBuyablePrice($options = null): float
     {
         return $this->price;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ShoppingCart;
 
 trait CanBeBought
@@ -20,9 +22,10 @@ trait CanBeBought
      * Get the description or title of the buyable item.
      *
      * @param null $options
+     *
      * @return string
      */
-    public function getBuyableDescriptions($options = null): ?string
+    public function getBuyableDescriptions($options = null)
     {
         if (property_exists($this, 'name')) {
             return $this->name;
@@ -44,7 +47,7 @@ trait CanBeBought
      *
      * @return float
      */
-    public function getBuyablePrice(): ?float
+    public function getBuyablePrice()
     {
         return property_exists($this, 'price')
             ? $this->price

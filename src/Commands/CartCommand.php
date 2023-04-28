@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ShoppingCart\Commands;
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 use Config\Autoload;
+use Exception;
 
 class CartCommand extends BaseCommand
 {
@@ -39,25 +42,19 @@ class CartCommand extends BaseCommand
 
     /**
      * The path directory.
-     *
-     * @var string
      */
     protected string $sourcePath;
 
-
     /**
      * Displays the help for the spark cli script itself.
-     *
-     * @param array $params
      */
-    public function run(array $params)
+    public function run(array $params): void
     {
         $this->determineSourcePath();
         $this->publishConfig();
     }
 
-
-    protected function publishConfig()
+    protected function publishConfig(): void
     {
         $path = "{$this->sourcePath}/Config/Cart.php";
 
@@ -67,26 +64,19 @@ class CartCommand extends BaseCommand
         $this->writeFile('Config/Cart.php', $content);
     }
 
-
-    //--------------------------------------------------------------------
+    // --------------------------------------------------------------------
     // Utilities
-    //--------------------------------------------------------------------
+    // --------------------------------------------------------------------
 
     /**
      * Replaces the Myth\Auth namespace in the published
      * file with the applications current namespace.
-     *
-     * @param string $contents
-     * @param string $originalNamespace
-     * @param string $newNamespace
-     *
-     * @return string
      */
     protected function replaceNamespace(string $contents, string $originalNamespace, string $newNamespace): string
     {
-        $appNamespace = APP_NAMESPACE;
+        $appNamespace      = APP_NAMESPACE;
         $originalNamespace = "namespace {$originalNamespace}";
-        $newNamespace = "namespace {$appNamespace}\\{$newNamespace}";
+        $newNamespace      = "namespace {$appNamespace}\\{$newNamespace}";
 
         return str_replace($originalNamespace, $newNamespace, $contents);
     }
@@ -94,12 +84,13 @@ class CartCommand extends BaseCommand
     /**
      * Determines the current source path from which all other files are located.
      */
-    protected function determineSourcePath()
+    protected function determineSourcePath(): void
     {
-        $this->sourcePath = realpath(__DIR__.'/../');
+        $this->sourcePath = realpath(__DIR__ . '/../');
 
-        if ($this->sourcePath == '/' || empty($this->sourcePath)) {
+        if ($this->sourcePath === '/' || empty($this->sourcePath)) {
             CLI::error('Unable to determine the correct source directory. Bailing.');
+
             exit();
         }
     }
@@ -107,30 +98,28 @@ class CartCommand extends BaseCommand
     /**
      * Write a file, catching any exceptions and showing a
      * nicely formatted error.
-     *
-     * @param string $path
-     * @param string $content
      */
-    protected function writeFile(string $path, string $content)
+    protected function writeFile(string $path, string $content): void
     {
-        $config = new Autoload();
+        $config  = new Autoload();
         $appPath = $config->psr4[APP_NAMESPACE];
 
-        $directory = dirname($appPath.$path);
+        $directory = dirname($appPath . $path);
 
-        if (!is_dir($directory)) {
+        if (! is_dir($directory)) {
             mkdir($directory, 0777, true);
         }
 
         try {
-            write_file($appPath.$path, $content);
-        } catch (\Exception $e) {
+            write_file($appPath . $path, $content);
+        } catch (Exception $e) {
             $this->showError($e);
+
             exit();
         }
 
         $path = str_replace($appPath, '', $path);
 
-        CLI::write(CLI::color('  created: ', 'green').$path);
+        CLI::write(CLI::color('  created: ', 'green') . $path);
     }
 }

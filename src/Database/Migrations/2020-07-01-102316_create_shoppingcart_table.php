@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ShoppingCart\Database\Migrations;
 
-use CodeIgniter\Config\Config;
 use CodeIgniter\Database\Migration;
 
 class CreateShoppingcartTable extends Migration
@@ -13,10 +14,10 @@ class CreateShoppingcartTable extends Migration
     {
         parent::__construct();
 
-        $this->table = Config::get('Cart')->table ?? 'shoppingcart';
+        $this->table = config('Cart')->table ?? 'shoppingcart';
     }
 
-    public function up()
+    public function up(): void
     {
         $this->forge->addField([
             'id'         => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
@@ -31,9 +32,9 @@ class CreateShoppingcartTable extends Migration
         $this->forge->createTable($this->table, true);
     }
 
-    //--------------------------------------------------------------------
+    // --------------------------------------------------------------------
 
-    public function down()
+    public function down(): void
     {
         $this->forge->dropTable($this->table, true);
     }
