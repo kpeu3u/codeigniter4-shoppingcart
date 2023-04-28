@@ -241,9 +241,8 @@ class Cart
      * @param string|null $decimalPoint
      * @param string|null $thousandSeparator
      *
-     * @return float
      */
-    public function tax($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+    public function tax($decimals = null, $decimalPoint = null, $thousandSeparator = null): string
     {
         $content = $this->getContent();
 
@@ -259,9 +258,9 @@ class Cart
      * @param string|null $decimalPoint
      * @param string|null $thousandSeparator
      *
-     * @return float
+     * @return string
      */
-    public function subtotal($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+    public function subtotal($decimals = null, $decimalPoint = null, $thousandSeparator = null): string
     {
         $content = $this->getContent();
 
@@ -273,7 +272,7 @@ class Cart
     /**
      * Search the cart content for a cart item matching the given search closure.
      *
-     * @return \Tightenco\Collect\Support\Collection
+     * @return Collection
      */
     public function search(Closure $search)
     {
@@ -400,7 +399,7 @@ class Cart
      *
      * @param string $attribute
      *
-     * @return float|null
+     * @return string|null
      */
     public function __get($attribute)
     {

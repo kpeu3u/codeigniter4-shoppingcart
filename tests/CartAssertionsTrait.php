@@ -7,7 +7,7 @@ namespace Tests;
 use PHPUnit\Framework\Assert;
 use ShoppingCart\Cart;
 
-trait CartAssertions
+trait CartAssertionsTrait
 {
     /**
      * Assert that cart containts the given number of items.

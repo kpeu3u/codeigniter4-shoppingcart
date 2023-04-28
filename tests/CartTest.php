@@ -18,7 +18,7 @@ use Tightenco\Collect\Support\Collection;
  */
 final class CartTest extends CIUnitTestCase
 {
-    use CartAssertions;
+    use CartAssertionsTrait;
     use DatabaseTestTrait;
 
     protected Cart $getCart;
@@ -53,6 +53,9 @@ final class CartTest extends CIUnitTestCase
         $this->assertItemsInCart(1, $cart->instance('wishlist'));
     }
 
+    /**
+     * @throws Exception
+     */
     public function testItCanAddAnItem(): void
     {
         $cart = $this->getCart;
@@ -84,7 +87,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add([new BuyableProduct(1), new BuyableProduct(2)]);
+        $cart->add([new BuyAbleProduct(1), new BuyAbleProduct(2)]);
 
         $this->assertSame(2, $cart->count());
         $this->assertEventTriggered('cart.added');
@@ -97,7 +100,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cartItems = $cart->add([new BuyableProduct(1), new BuyableProduct(2)]);
+        $cartItems = $cart->add([new BuyAbleProduct(1), new BuyAbleProduct(2)]);
 
         $this->assertIsArray($cartItems);
         $this->assertCount(2, $cartItems);
@@ -159,7 +162,7 @@ final class CartTest extends CIUnitTestCase
 
         $options = ['size' => 'XL', 'color' => 'red'];
 
-        $cart->add(new BuyableProduct(), 1, $options);
+        $cart->add(new BuyAbleProduct(), 1, $options);
 
         $cartItem = $cart->get('07d5da5550494c62daf9993cf954303f');
 
@@ -214,7 +217,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $item = new BuyableProduct();
+        $item = new BuyAbleProduct();
 
         $cart->add($item);
         $cart->add($item);
@@ -227,7 +230,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $item = new BuyableProduct();
+        $item = new BuyAbleProduct();
 
         $cart->add($item);
         $cart->add($item);
@@ -244,7 +247,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct());
+        $cart->add(new BuyAbleProduct());
 
         $cart->update('027c91341fd5cf4d2579b49c4b6a90da', 2);
 
@@ -261,9 +264,9 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct());
+        $cart->add(new BuyAbleProduct());
 
-        $cart->update('027c91341fd5cf4d2579b49c4b6a90da', new BuyableProduct(1, 'Different description'));
+        $cart->update('027c91341fd5cf4d2579b49c4b6a90da', new BuyAbleProduct(1, 'Different description'));
 
         $this->assertItemsInCart(1, $cart);
         $this->assertSame('Different description', $cart->get('027c91341fd5cf4d2579b49c4b6a90da')->name);
@@ -278,7 +281,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct());
+        $cart->add(new BuyAbleProduct());
 
         $cart->update('027c91341fd5cf4d2579b49c4b6a90da', ['name' => 'Different description']);
 
@@ -294,16 +297,16 @@ final class CartTest extends CIUnitTestCase
 
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct());
+        $cart->add(new BuyAbleProduct());
 
-        $cart->update('none-existing-rowid', new BuyableProduct(1, 'Different description'));
+        $cart->update('none-existing-rowid', new BuyAbleProduct(1, 'Different description'));
     }
 
     public function testItWillRegenerateTheRowidIfTheOptionsChanged(): void
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(), 1, ['color' => 'red']);
+        $cart->add(new BuyAbleProduct(), 1, ['color' => 'red']);
 
         $cart->update('ea65e0bdcd1967c4b3149e9e780177c0', ['options' => ['color' => 'blue']]);
 
@@ -316,8 +319,8 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(), 1, ['color' => 'red']);
-        $cart->add(new BuyableProduct(), 1, ['color' => 'blue']);
+        $cart->add(new BuyAbleProduct(), 1, ['color' => 'red']);
+        $cart->add(new BuyAbleProduct(), 1, ['color' => 'blue']);
 
         $cart->update('7e70a1e9aaadd18c72921a07aae5d011', ['options' => ['color' => 'red']]);
 
@@ -332,7 +335,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct());
+        $cart->add(new BuyAbleProduct());
 
         $cart->remove('027c91341fd5cf4d2579b49c4b6a90da');
 
@@ -349,7 +352,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct());
+        $cart->add(new BuyAbleProduct());
 
         $cart->update('027c91341fd5cf4d2579b49c4b6a90da', 0);
 
@@ -366,7 +369,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct());
+        $cart->add(new BuyAbleProduct());
 
         $cart->update('027c91341fd5cf4d2579b49c4b6a90da', -1);
 
@@ -380,7 +383,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct());
+        $cart->add(new BuyAbleProduct());
 
         $cartItem = $cart->get('027c91341fd5cf4d2579b49c4b6a90da');
 
@@ -391,8 +394,8 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1));
-        $cart->add(new BuyableProduct(2));
+        $cart->add(new BuyAbleProduct(1));
+        $cart->add(new BuyAbleProduct(2));
 
         $content = $cart->content();
 
@@ -414,8 +417,8 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1));
-        $cart->add(new BuyableProduct(2));
+        $cart->add(new BuyAbleProduct(1));
+        $cart->add(new BuyAbleProduct(2));
 
         $content = $cart->content();
 
@@ -426,7 +429,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct());
+        $cart->add(new BuyAbleProduct());
 
         $this->assertItemsInCart(1, $cart);
 
@@ -439,8 +442,8 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1, 'First item', 10.00));
-        $cart->add(new BuyableProduct(2, 'Second item', 25.00), 2);
+        $cart->add(new BuyAbleProduct(1, 'First item', 10.00));
+        $cart->add(new BuyAbleProduct(2, 'Second item', 25.00), 2);
 
         $this->assertItemsInCart(3, $cart);
         $this->assertSame('60.00', $cart->subtotal());
@@ -450,8 +453,8 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1, 'First item', 1000.00));
-        $cart->add(new BuyableProduct(2, 'Second item', 2500.00), 2);
+        $cart->add(new BuyAbleProduct(1, 'First item', 1000.00));
+        $cart->add(new BuyAbleProduct(2, 'Second item', 2500.00), 2);
 
         $this->assertItemsInCart(3, $cart);
         $this->assertSame('6.000,00', $cart->subtotal(2, ',', '.'));
@@ -461,8 +464,8 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1, 'Some item'));
-        $cart->add(new BuyableProduct(2, 'Another item'));
+        $cart->add(new BuyAbleProduct(1, 'Some item'));
+        $cart->add(new BuyAbleProduct(2, 'Another item'));
 
         $cartItem = $cart->search(static fn ($cartItem, $rowId) => $cartItem->name === 'Some item');
 
@@ -476,9 +479,9 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1, 'Some item'));
-        $cart->add(new BuyableProduct(2, 'Some item'));
-        $cart->add(new BuyableProduct(3, 'Another item'));
+        $cart->add(new BuyAbleProduct(1, 'Some item'));
+        $cart->add(new BuyAbleProduct(2, 'Some item'));
+        $cart->add(new BuyAbleProduct(3, 'Another item'));
 
         $cartItem = $cart->search(static fn ($cartItem, $rowId) => $cartItem->name === 'Some item');
 
@@ -489,8 +492,8 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1, 'Some item'), 1, ['color' => 'red']);
-        $cart->add(new BuyableProduct(2, 'Another item'), 1, ['color' => 'blue']);
+        $cart->add(new BuyAbleProduct(1, 'Some item'), 1, ['color' => 'red']);
+        $cart->add(new BuyAbleProduct(2, 'Another item'), 1, ['color' => 'blue']);
 
         $cartItem = $cart->search(static fn ($cartItem, $rowId) => $cartItem->options->color === 'red');
 
@@ -543,7 +546,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1, 'Some title', 9.99), 3);
+        $cart->add(new BuyAbleProduct(1, 'Some title', 9.99), 3);
 
         $cartItem = $cart->get('027c91341fd5cf4d2579b49c4b6a90da');
 
@@ -554,7 +557,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1, 'Some title', 10.00), 1);
+        $cart->add(new BuyAbleProduct(1, 'Some title', 10.00), 1);
 
         $cartItem = $cart->get('027c91341fd5cf4d2579b49c4b6a90da');
 
@@ -565,7 +568,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1, 'Some title', 10.00), 1);
+        $cart->add(new BuyAbleProduct(1, 'Some title', 10.00), 1);
 
         $cart->setTax('027c91341fd5cf4d2579b49c4b6a90da', 19);
 
@@ -578,7 +581,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1, 'Some title', 10000.00), 1);
+        $cart->add(new BuyAbleProduct(1, 'Some title', 10000.00), 1);
 
         $cartItem = $cart->get('027c91341fd5cf4d2579b49c4b6a90da');
 
@@ -589,8 +592,8 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1, 'Some title', 1000.00), 1);
-        $cart->add(new BuyableProduct(2, 'Some title', 2000.00), 2);
+        $cart->add(new BuyAbleProduct(1, 'Some title', 1000.00), 1);
+        $cart->add(new BuyAbleProduct(2, 'Some title', 2000.00), 2);
 
         $this->assertSame('1.050,00', $cart->tax(2, ',', '.'));
     }
@@ -599,8 +602,8 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1, 'Some title', 10.00), 1);
-        $cart->add(new BuyableProduct(2, 'Some title', 20.00), 2);
+        $cart->add(new BuyAbleProduct(1, 'Some title', 10.00), 1);
+        $cart->add(new BuyAbleProduct(2, 'Some title', 20.00), 2);
 
         $this->assertSame('50.00', $cart->subtotal());
     }
@@ -609,8 +612,8 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1, 'Some title', 1000.00), 1);
-        $cart->add(new BuyableProduct(2, 'Some title', 2000.00), 2);
+        $cart->add(new BuyAbleProduct(1, 'Some title', 1000.00), 1);
+        $cart->add(new BuyAbleProduct(2, 'Some title', 2000.00), 2);
 
         $this->assertSame('5000,00', $cart->subtotal(2, ',', ''));
     }
@@ -622,7 +625,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct());
+        $cart->add(new BuyAbleProduct());
 
         $cart->store($identifier = 123);
 
@@ -635,7 +638,7 @@ final class CartTest extends CIUnitTestCase
     {
         $cart = $this->getCart;
 
-        $cart->add(new BuyableProduct(1, 'First item', 10.00), 2);
+        $cart->add(new BuyAbleProduct(1, 'First item', 10.00), 2);
 
         $cartItem = $cart->get('027c91341fd5cf4d2579b49c4b6a90da');
 
