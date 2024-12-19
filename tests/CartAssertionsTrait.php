@@ -10,11 +10,9 @@ use ShoppingCart\Cart;
 trait CartAssertionsTrait
 {
     /**
-     * Assert that cart containts the given number of items.
-     *
-     * @param float|int $items
+     * Assert that cart contains the given number of items.
      */
-    public function assertItemsInCart($items, Cart $cart): void
+    public function assertItemsInCart(int $items, Cart $cart): void
     {
         $actual = $cart->count();
 

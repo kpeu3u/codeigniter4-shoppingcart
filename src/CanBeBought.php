@@ -8,10 +8,8 @@ trait CanBeBought
 {
     /**
      * Get the identifier of buyable item.
-     *
-     * @return int|string
      */
-    public function getBuyableIdentifier()
+    public function getBuyableIdentifier(): int|string
     {
         return method_exists($this, 'getKey')
             ? $this->getKey()
@@ -21,11 +19,9 @@ trait CanBeBought
     /**
      * Get the description or title of the buyable item.
      *
-     * @param null $options
-     *
-     * @return string
+     * @param mixed|null $options
      */
-    public function getBuyableDescriptions($options = null)
+    public function getBuyableDescriptions($options = null): ?string
     {
         if (property_exists($this, 'name')) {
             return $this->name;
@@ -44,10 +40,8 @@ trait CanBeBought
 
     /**
      * Get the price of buyable item.
-     *
-     * @return float
      */
-    public function getBuyablePrice()
+    public function getBuyablePrice(): ?float
     {
         return property_exists($this, 'price')
             ? $this->price

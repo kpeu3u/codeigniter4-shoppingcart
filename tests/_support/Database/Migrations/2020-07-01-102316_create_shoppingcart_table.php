@@ -14,7 +14,7 @@ class CreateShoppingcartTable extends Migration
     {
         parent::__construct();
 
-        $this->table = config('Cart')->table ?? 'shoppingcart';
+        $this->table = config('Cart')->table ?? 'shopping_cart';
     }
 
     public function up(): void

@@ -15,10 +15,10 @@ class Cart extends BaseConfig
     public int $tax = 21;
 
     /**
-     * Here you can set the connection that the shoppingcart should use when
+     * Here you can set the connection that the shopping_cart should use when
      * storing and restoring a cart.
      */
-    public string $table = 'shoppingcart';
+    public string $table = 'shopping_cart';
 
     /**
      * This defaults will be used for the formatted numbers if you don't

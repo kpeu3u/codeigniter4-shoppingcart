@@ -25,6 +25,6 @@ class ShoppingCart extends Model
     {
         parent::__construct();
 
-        $this->table = config('Cart')->table ?? 'shoppingcart';
+        $this->table = config('Cart')->table ?? 'shopping_cart';
     }
 }

@@ -8,39 +8,21 @@ use ShoppingCart\Contracts\Buyable;
 
 class BuyAbleProduct implements Buyable
 {
-    /**
-     * @var int|string
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var float
-     */
-    private $price;
-
-    public function __construct($id = 1, $name = 'Item name', $price = 10.00)
+    public function __construct(private readonly int|string $id = 1, private readonly string $name = 'Item name', private readonly float $price = 10.00)
     {
-        $this->id    = $id;
-        $this->name  = $name;
-        $this->price = $price;
     }
 
-    public function getBuyableIdentifier($options = null)
+    public function getBuyableIdentifier(mixed $options = null): int|string
     {
         return $this->id;
     }
 
-    public function getBuyableDescription($options = null): string
+    public function getBuyableDescription(mixed $options = null): string
     {
         return $this->name;
     }
 
-    public function getBuyablePrice($options = null): float
+    public function getBuyablePrice(mixed $options = null): float
     {
         return $this->price;
     }

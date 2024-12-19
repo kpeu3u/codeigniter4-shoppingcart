@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ShoppingCart\Facades;
 
+use Closure;
 use ShoppingCart\Cart as ShoppingCart;
 
 /**
@@ -18,7 +19,7 @@ use ShoppingCart\Cart as ShoppingCart;
  * @method static ShoppingCart instance($instance = null)
  * @method static ShoppingCart remove($rowId)
  * @method static ShoppingCart restore($identifier)
- * @method static ShoppingCart search(\Closure $search)
+ * @method static ShoppingCart search(Closure $search)
  * @method static ShoppingCart setTax($rowId, $taxRate)
  * @method static ShoppingCart store($identifier)
  * @method static ShoppingCart subtotal($decimals = null, $decimalPoint = null, $thousandSeparator = null)
@@ -31,12 +32,9 @@ use ShoppingCart\Cart as ShoppingCart;
 class Cart
 {
     /**
-     * @param mixed $method
-     * @param mixed $arguments
-     *
      * @return ShoppingCart
      */
-    public static function __callStatic($method, $arguments)
+    public static function __callStatic(mixed $method, mixed $arguments)
     {
         return (new ShoppingCart())->{$method}(...$arguments);
     }

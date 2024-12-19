@@ -9,7 +9,7 @@ use ShoppingCart\Cart;
 
 class Services extends BaseService
 {
-    public static function cart($getShared = true)
+    public static function cart($getShared = true): object
     {
         if ($getShared) {
             return static::getSharedInstance('cart');

@@ -8,24 +8,16 @@ interface Buyable
 {
     /**
      * Get the identifier of the Buyable item.
-     *
-     * @param mixed|null $options
-     *
-     * @return int|string
      */
-    public function getBuyableIdentifier($options = null);
+    public function getBuyableIdentifier(mixed $options = null): int|string;
 
     /**
      * Get the description or title of the Buyable item.
-     *
-     * @param mixed|null $options
      */
-    public function getBuyableDescription($options = null): string;
+    public function getBuyableDescription(mixed $options = null): string;
 
     /**
      * Get the price of the Buyable item.
-     *
-     * @param mixed|null $options
      */
-    public function getBuyablePrice($options = null): float;
+    public function getBuyablePrice(mixed $options = null): float;
 }
