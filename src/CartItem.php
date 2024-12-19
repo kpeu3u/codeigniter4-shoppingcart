@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace ShoppingCart;
 
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use ShoppingCart\Contracts\Buyable;
-use Tightenco\Collect\Contracts\Support\Arrayable;
-use Tightenco\Collect\Contracts\Support\Jsonable;
-use Tightenco\Collect\Support\Arr;
 
 class CartItem implements Arrayable, Jsonable
 {

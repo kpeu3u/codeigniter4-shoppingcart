@@ -11,11 +11,11 @@ use CodeIgniter\Events\Events;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\Session\Session;
 use Exception;
+use Illuminate\Support\Collection;
 use ShoppingCart\Contracts\Buyable;
 use ShoppingCart\Exceptions\InvalidRowIDException;
 use ShoppingCart\Exceptions\UnknownModelException;
 use ShoppingCart\Models\ShoppingCart;
-use Tightenco\Collect\Support\Collection;
 
 class Cart
 {
@@ -70,15 +70,9 @@ class Cart
     /**
      * Add an item to the cart.
      *
-     * @param mixed          $id
-     * @param mixed          $name
-     * @param float|int|null $qty
-     * @param mixed|null     $price
-     * @param mixed|null     $taxrate
-     *
      * @return array|CartItem
      */
-    public function add($id, $name = null, $qty = null, $price = null, array $options = [], $taxrate = null)
+    public function add(mixed $id, mixed $name = null, mixed $qty = null, mixed $price = null, array $options = [], mixed $taxRate = null)
     {
         if ($this->isMulti($id)) {
             return array_map(fn ($item) => $this->add($item), $id);
@@ -87,7 +81,7 @@ class Cart
         if ($id instanceof CartItem) {
             $cartItem = $id;
         } else {
-            $cartItem = $this->createCartItem($id, $name, $qty, $price, $options, $taxrate);
+            $cartItem = $this->createCartItem($id, $name, $qty, $price, $options, $taxRate);
         }
 
         $content = $this->getContent();
@@ -240,7 +234,6 @@ class Cart
      * @param int|null    $decimals
      * @param string|null $decimalPoint
      * @param string|null $thousandSeparator
-     *
      */
     public function tax($decimals = null, $decimalPoint = null, $thousandSeparator = null): string
     {
@@ -257,8 +250,6 @@ class Cart
      * @param int|null    $decimals
      * @param string|null $decimalPoint
      * @param string|null $thousandSeparator
-     *
-     * @return string
      */
     public function subtotal($decimals = null, $decimalPoint = null, $thousandSeparator = null): string
     {
@@ -455,7 +446,7 @@ class Cart
             $cartItem->setQuantity($qty);
         }
 
-        if (isset($taxrate) && is_numeric($taxrate)) {
+        if (! empty($taxrate) && is_numeric($taxrate)) {
             $cartItem->setTaxRate($taxrate);
         } else {
             $cartItem->setTaxRate(config('Cart')->tax);
@@ -466,10 +457,8 @@ class Cart
 
     /**
      * Check if the item is a multidimensional array or an array of Buyables.
-     *
-     * @param mixed $item
      */
-    private function isMulti($item): bool
+    private function isMulti(mixed $item): bool
     {
         if (! is_array($item)) {
             return false;
@@ -485,8 +474,6 @@ class Cart
      */
     protected function storedCartWithIdentifierExists($identifier)
     {
-        return $this->model->where('identifier', $identifier)->where('instance', $this->currentInstance())->first()
-            ? true
-            : false;
+        return (bool) $this->model->where('identifier', $identifier)->where('instance', $this->currentInstance())->first();
     }
 }

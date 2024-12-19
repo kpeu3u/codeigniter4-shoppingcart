@@ -25,7 +25,6 @@ class Cart extends BaseConfig
      * set them in the method call.
      */
     public array $format = [
-
         'decimals' => 2,
 
         'decimal_point' => '.',

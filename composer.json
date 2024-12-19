@@ -10,18 +10,18 @@
         }
     ],
     "require": {
-        "php": "^7.4.3 || ^8.0",
-        "codeigniter4/framework": "^4.3",
-        "tightenco/collect": "^v8.0",
-        "ext-json": "*"
+        "php": "^8.2",
+        "ext-json": "*",
+        "codeigniter4/framework": "^4.5.5",
+        "illuminate/collections": "^11.36"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.21",
+        "fakerphp/faker": "^1.23",
         "mikey179/vfsstream": "^1.6",
-        "phpunit/phpunit": "^9.5",
-        "codeigniter4/devkit": "^1.1",
-        "mockery/mockery": "^1.5",
-        "rector/rector": "0.15.23"
+        "phpunit/phpunit": "^9.6",
+        "codeigniter4/devkit": "^1.2",
+        "mockery/mockery": "^1.6",
+        "rector/rector": "^1.2"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

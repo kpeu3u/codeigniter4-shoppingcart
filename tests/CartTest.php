@@ -8,10 +8,10 @@ use CodeIgniter\Events\Events;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use Exception;
+use Illuminate\Support\Collection;
 use ShoppingCart\Cart;
 use ShoppingCart\CartItem;
 use Tests\Support\Database\Seeds\CartSeeder;
-use Tightenco\Collect\Support\Collection;
 
 /**
  * @internal
@@ -558,7 +558,7 @@ final class CartTest extends CIUnitTestCase
         $cart = $this->getCart;
 
         $cart->add(new BuyAbleProduct(1, 'Some title', 10.00), 1);
-
+        /** @var CartItem $cartItem */
         $cartItem = $cart->get('027c91341fd5cf4d2579b49c4b6a90da');
 
         $this->assertSame('2.10', $cartItem->tax());
@@ -653,19 +653,5 @@ final class CartTest extends CIUnitTestCase
         $this->assertSame('20.00', $cart->subtotal(2));
         $this->assertSame('23.80', $cart->total(2));
         $this->assertSame('3.80', $cart->tax(2));
-    }
-
-    /**
-     * Set the config number format.
-     */
-    private function setConfigFormat(int $decimals, string $decimalPoint, string $thousandSeparator): ?object
-    {
-        $config = config('Cart');
-
-        $config->format['decimals']           = $decimals;
-        $config->format['decimal_point']      = $decimalPoint;
-        $config->format['thousand_separator'] = $thousandSeparator;
-
-        return $config;
     }
 }
