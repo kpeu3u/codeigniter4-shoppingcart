@@ -554,7 +554,7 @@ final class CartTest extends CIUnitTestCase
 
         $cartItem = $cart->get('027c91341fd5cf4d2579b49c4b6a90da');
 
-        $this->assertSame('29.97', $cartItem->subtotal); // @phpstan-ignore-line
+        $this->assertSame('29.97', $cartItem->subTotal());
     }
 
     public function testItCanCalculateTaxBasedOnTheDefaultTaxRateInTheConfig(): void
