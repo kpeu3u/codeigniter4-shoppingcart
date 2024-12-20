@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ShoppingCart;
 
 trait CanBeBought
 {
     /**
      * Get the identifier of buyable item.
-     *
-     * @return int|string
      */
-    public function getBuyableIdentifier()
+    public function getBuyableIdentifier(): int|string
     {
         return method_exists($this, 'getKey')
             ? $this->getKey()
@@ -19,8 +19,7 @@ trait CanBeBought
     /**
      * Get the description or title of the buyable item.
      *
-     * @param null $options
-     * @return string
+     * @param mixed|null $options
      */
     public function getBuyableDescriptions($options = null): ?string
     {
@@ -41,8 +40,6 @@ trait CanBeBought
 
     /**
      * Get the price of buyable item.
-     *
-     * @return float
      */
     public function getBuyablePrice(): ?float
     {

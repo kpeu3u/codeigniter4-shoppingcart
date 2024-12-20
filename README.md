@@ -7,7 +7,7 @@ Ported from https://github.com/Crinsane/LaravelShoppingcart for CodeIgniter4
 [![Latest Unstable Version](https://poser.pugx.org/agungsugiarto/codeigniter4-shoppingcart/v/unstable)](https://packagist.org/packages/agungsugiarto/codeigniter4-shoppingcart)
 [![License](https://poser.pugx.org/agungsugiarto/codeigniter4-shoppingcart/license)](https://packagist.org/packages/agungsugiarto/codeigniter4-shoppingcart)
 
-A simple shoppingcart implementation for CodeIgniter4.
+A simple shopping cart implementation for CodeIgniter4.
 
 ## Installation
 
@@ -17,7 +17,7 @@ Run the Composer require command from the Terminal:
 
     composer require agungsugiarto/codeigniter4-shoppingcart
 
-Now you're ready to start using the shoppingcart in your application.
+Now you're ready to start using the shopping cart in your application.
 
 ## Overview
 Look at one of the following topics to learn more about CodeIgniter4 ShoppingCart
