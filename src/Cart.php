@@ -196,11 +196,11 @@ class Cart
     /**
      * Get the total price of the items in the cart.
      */
-    public function total(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): float
+    public function total(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         $content = $this->getContent();
 
-        $total = (float) $content->reduce(static fn ($total, CartItem $cartItem) => $total + ($cartItem->qty * $cartItem->priceTax()), 0);
+        $total = (float) $content->reduce(static fn ($total, CartItem $cartItem) => $total + ($cartItem->qty * (float) $cartItem->priceTax()), 0);
 
         return CartItem::numberFormat($total, $decimals, $decimalPoint, $thousandSeparator);
     }
@@ -208,11 +208,11 @@ class Cart
     /**
      * Get the total tax of the items in the cart.
      */
-    public function tax(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): float
+    public function tax(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         $content = $this->getContent();
 
-        $tax = (float) $content->reduce(static fn ($tax, CartItem $cartItem) => $tax + ($cartItem->qty * $cartItem->tax()), 0);
+        $tax = (float) $content->reduce(static fn ($tax, CartItem $cartItem) => $tax + ($cartItem->qty * (float) $cartItem->tax()), 0);
 
         return CartItem::numberFormat($tax, $decimals, $decimalPoint, $thousandSeparator);
     }
@@ -220,11 +220,11 @@ class Cart
     /**
      * Get the subtotal (total - tax) of the items in the cart.
      */
-    public function subtotal(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): float
+    public function subtotal(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         $content = $this->getContent();
 
-        $subTotal = (float) $content->reduce(static fn ($subTotal, CartItem $cartItem) => $subTotal + ($cartItem->qty * $cartItem->price), 0);
+        $subTotal = (float) $content->reduce(static fn ($subTotal, CartItem $cartItem) => $subTotal + ($cartItem->qty * (float) $cartItem->price), 0);
 
         return CartItem::numberFormat($subTotal, $decimals, $decimalPoint, $thousandSeparator);
     }
@@ -342,7 +342,7 @@ class Cart
     /**
      * Magic method to make accessing the total, tax and subtotal properties possible.
      *
-     * @return float|null
+     * @return string|null
      */
     public function __get(string $attribute)
     {

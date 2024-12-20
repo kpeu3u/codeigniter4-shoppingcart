@@ -89,7 +89,7 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Return the formatted price without TAX.
      */
-    public function price(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): float
+    public function price(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         return static::numberFormat($this->price, $decimals, $decimalPoint, $thousandSeparator);
     }
@@ -97,7 +97,7 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Return the formatted price with TAX.
      */
-    public function priceTax(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): float
+    public function priceTax(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         return static::numberFormat((float) $this->priceTax, $decimals, $decimalPoint, $thousandSeparator); // @phpstan-ignore-line
     }
@@ -105,7 +105,7 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Returns the formatted subTotal.
      */
-    public function subTotal(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): float
+    public function subTotal(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         return static::numberFormat((float) $this->subTotal, $decimals, $decimalPoint, $thousandSeparator); // @phpstan-ignore-line
     }
@@ -113,7 +113,7 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Returns the formatted total.
      */
-    public function total(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): float
+    public function total(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         return static::numberFormat((float) $this->total, $decimals, $decimalPoint, $thousandSeparator); // @phpstan-ignore-line
     }
@@ -121,7 +121,7 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Returns the formatted tax.
      */
-    public function tax(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): float
+    public function tax(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         return static::numberFormat((float) $this->tax, $decimals, $decimalPoint, $thousandSeparator); // @phpstan-ignore-line
     }
@@ -129,7 +129,7 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Returns the formatted tax.
      */
-    public function taxTotal(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): float
+    public function taxTotal(?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         return static::numberFormat((float) ($this->taxTotal), $decimals, $decimalPoint, $thousandSeparator); // @phpstan-ignore-line
     }
@@ -214,23 +214,23 @@ class CartItem implements Arrayable, Jsonable
         }
 
         if ($attribute === 'priceTax') {
-            return (float) number_format(($this->price + $this->tax), 2, '.', ''); // @phpstan-ignore-line
+            return number_format(($this->price + $this->tax), 2, '.', ''); // @phpstan-ignore-line
         }
 
         if ($attribute === 'subtotal') {
-            return (float) number_format(($this->qty * $this->price), 2, '.', '');
+            return number_format(($this->qty * $this->price), 2, '.', '');
         }
 
         if ($attribute === 'total') {
-            return (float) number_format(($this->qty * $this->priceTax), 2, '.', ''); // @phpstan-ignore-line
+            return number_format(($this->qty * $this->priceTax), 2, '.', ''); // @phpstan-ignore-line
         }
 
         if ($attribute === 'tax') {
-            return (float) number_format(($this->price * ($this->taxRate / 100)), 2, '.', '');
+            return number_format(($this->price * ($this->taxRate / 100)), 2, '.', '');
         }
 
         if ($attribute === 'taxTotal') {
-            return (float) number_format(($this->tax * $this->qty), 2, '.', ''); // @phpstan-ignore-line
+            return number_format(($this->tax * $this->qty), 2, '.', ''); // @phpstan-ignore-line
         }
 
         if ($attribute === 'model' && isset($this->associatedModel)) {
@@ -311,7 +311,7 @@ class CartItem implements Arrayable, Jsonable
     /**
      * Get the formatted number.
      */
-    public static function numberFormat(float $value, ?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): float
+    public static function numberFormat(float $value, ?int $decimals = null, ?string $decimalPoint = null, ?string $thousandSeparator = null): string
     {
         if (null === $decimals) {
             $decimals = config('Cart')->format['decimals'] ?? 2;
@@ -325,6 +325,6 @@ class CartItem implements Arrayable, Jsonable
             $thousandSeparator = config('Cart')->format['thousand_separator'] ?? ',';
         }
 
-        return (float) number_format($value, $decimals, $decimalPoint, $thousandSeparator);
+        return number_format($value, $decimals, $decimalPoint, $thousandSeparator);
     }
 }

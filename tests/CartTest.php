@@ -451,7 +451,7 @@ final class CartTest extends CIUnitTestCase
         $cart->add(new BuyAbleProduct(2, 'Second item', 25.00), 2);
 
         $this->assertItemsInCart(3, $cart);
-        $this->assertEqualsWithDelta(60.00, $cart->subtotal(), PHP_FLOAT_EPSILON);
+        $this->assertSame('60.00', $cart->subtotal());
     }
 
     public function testItCanReturnAFormattedTotal(): void
@@ -462,7 +462,7 @@ final class CartTest extends CIUnitTestCase
         $cart->add(new BuyAbleProduct(2, 'Second item', 2500.00), 2);
 
         $this->assertItemsInCart(3, $cart);
-        $this->assertSame((float) '6.000,00', $cart->subtotal(2, ',', '.'));
+        $this->assertSame('6.000,00', $cart->subtotal(2, ',', '.'));
     }
 
     public function testItCanSearchTheCartForASpecificItem(): void
@@ -554,7 +554,7 @@ final class CartTest extends CIUnitTestCase
 
         $cartItem = $cart->get('027c91341fd5cf4d2579b49c4b6a90da');
 
-        $this->assertEqualsWithDelta(29.97, $cartItem->subtotal, PHP_FLOAT_EPSILON); // @phpstan-ignore-line
+        $this->assertSame('29.97', $cartItem->subtotal); // @phpstan-ignore-line
     }
 
     public function testItCanCalculateTaxBasedOnTheDefaultTaxRateInTheConfig(): void
@@ -564,7 +564,7 @@ final class CartTest extends CIUnitTestCase
         $cart->add(new BuyAbleProduct(1, 'Some title', 10.00), 1);
         $cartItem = $cart->get('027c91341fd5cf4d2579b49c4b6a90da');
 
-        $this->assertEqualsWithDelta(2.10, $cartItem->tax(), PHP_FLOAT_EPSILON);
+        $this->assertSame('2.10', $cartItem->tax());
     }
 
     public function testItCanCalculateTaxBasedOnTheSpecifiedTax(): void
@@ -577,7 +577,7 @@ final class CartTest extends CIUnitTestCase
 
         $cartItem = $cart->get('027c91341fd5cf4d2579b49c4b6a90da');
 
-        $this->assertEqualsWithDelta(1.90, $cartItem->tax(), PHP_FLOAT_EPSILON);
+        $this->assertSame('1.90', $cartItem->tax());
     }
 
     public function testItCanReturnTheCalculatedTaxFormatted(): void
@@ -588,7 +588,7 @@ final class CartTest extends CIUnitTestCase
 
         $cartItem = $cart->get('027c91341fd5cf4d2579b49c4b6a90da');
 
-        $this->assertSame((float) '2.100,00', $cartItem->tax(2, ',', '.'));
+        $this->assertSame('2.100,00', $cartItem->tax(2, ',', '.'));
     }
 
     public function testItCanReturnFormattedTotalTax(): void
@@ -598,7 +598,7 @@ final class CartTest extends CIUnitTestCase
         $cart->add(new BuyAbleProduct(1, 'Some title', 1000.00), 1);
         $cart->add(new BuyAbleProduct(2, 'Some title', 2000.00), 2);
 
-        $this->assertSame((float) '1.050,00', $cart->tax(2, ',', '.'));
+        $this->assertSame('1.050,00', $cart->tax(2, ',', '.'));
     }
 
     public function testItCanReturnTheSubtotal(): void
@@ -608,7 +608,7 @@ final class CartTest extends CIUnitTestCase
         $cart->add(new BuyAbleProduct(1, 'Some title', 10.00), 1);
         $cart->add(new BuyAbleProduct(2, 'Some title', 20.00), 2);
 
-        $this->assertEqualsWithDelta(50.00, $cart->subtotal(), PHP_FLOAT_EPSILON);
+        $this->assertSame('50.00', $cart->subtotal());
     }
 
     public function testItCanReturnFormattedSubtotal(): void
@@ -618,7 +618,7 @@ final class CartTest extends CIUnitTestCase
         $cart->add(new BuyAbleProduct(1, 'Some title', 1000.00), 1);
         $cart->add(new BuyAbleProduct(2, 'Some title', 2000.00), 2);
 
-        $this->assertSame((float) '5000,00', $cart->subtotal(2, ',', ''));
+        $this->assertSame('5000,00', $cart->subtotal(2, ',', ''));
     }
 
     /**
@@ -647,14 +647,14 @@ final class CartTest extends CIUnitTestCase
 
         $cart->setTax('027c91341fd5cf4d2579b49c4b6a90da', 19);
 
-        $this->assertEqualsWithDelta(10.00, $cartItem->price(2), PHP_FLOAT_EPSILON);
-        $this->assertEqualsWithDelta(11.90, $cartItem->priceTax(2), PHP_FLOAT_EPSILON);
-        $this->assertEqualsWithDelta(23.80, $cartItem->total(2), PHP_FLOAT_EPSILON);
-        $this->assertEqualsWithDelta(1.90, $cartItem->tax(2), PHP_FLOAT_EPSILON);
-        $this->assertEqualsWithDelta(3.80, $cartItem->taxTotal(2), PHP_FLOAT_EPSILON);
+        $this->assertSame('10.00', $cartItem->price(2));
+        $this->assertSame('11.90', $cartItem->priceTax(2));
+        $this->assertSame('23.80', $cartItem->total(2));
+        $this->assertSame('1.90', $cartItem->tax(2));
+        $this->assertSame('3.80', $cartItem->taxTotal(2));
 
-        $this->assertEqualsWithDelta(20.00, $cart->subtotal(2), PHP_FLOAT_EPSILON);
-        $this->assertEqualsWithDelta(23.80, $cart->total(2), PHP_FLOAT_EPSILON);
-        $this->assertEqualsWithDelta(3.80, $cart->tax(2), PHP_FLOAT_EPSILON);
+        $this->assertSame('20.00', $cart->subtotal(2));
+        $this->assertSame('23.80', $cart->total(2));
+        $this->assertSame('3.80', $cart->tax(2));
     }
 }
