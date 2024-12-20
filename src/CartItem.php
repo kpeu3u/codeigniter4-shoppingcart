@@ -217,7 +217,7 @@ class CartItem implements Arrayable, Jsonable
             return number_format(($this->price + $this->tax), 2, '.', ''); // @phpstan-ignore-line
         }
 
-        if ($attribute === 'subtotal') {
+        if ($attribute === 'subTotal') {
             return number_format(($this->qty * $this->price), 2, '.', '');
         }
 
