@@ -378,7 +378,7 @@ class Cart
      * @param float     $price
      * @param float     $taxRate
      */
-    private function createCartItem(mixed $id, mixed $name, $qty, $price, array $options, $taxRate): CartItem
+    private function createCartItem(mixed $id, mixed $name, $qty, mixed $price, array $options, $taxRate): CartItem
     {
         if ($id instanceof Buyable) {
             $cartItem = CartItem::fromBuyable($id, $qty ?: []);
